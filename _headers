@@ -1,0 +1,11 @@
+# Netlify security headers
+# Drop this file (named exactly "_headers", no extension) in the same folder
+# as index.html and deploy to Netlify. It auto-applies to every page.
+
+/*
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: geolocation=(), camera=(), microphone=()
+  Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; frame-src https://www.google.com; frame-ancestors 'none'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'

@@ -1,0 +1,21 @@
+# .htaccess — Hostinger / Apache ke liye security headers
+# Is file ko index.html ke SAME folder mein upload karo (public_html mein)
+
+<IfModule mod_headers.c>
+  Header always set X-Frame-Options "DENY"
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "geolocation=(), camera=(), microphone=()"
+  Header always set Strict-Transport-Security "max-age=63072000; includeSubDomains; preload"
+  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; frame-src https://www.google.com; frame-ancestors 'none'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'"
+</IfModule>
+
+# Force HTTPS (http:// pe koi aaye to automatic https:// pe bhej do)
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{HTTPS} off
+  RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+</IfModule>
+
+# Directory listing band karo (koi bhi folder ke andar ke saare files browse na kar sake)
+Options -Indexes
