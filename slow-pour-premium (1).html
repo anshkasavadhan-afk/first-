@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Slow Pour Coffee House</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Jost:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#14100d;--panel:#1c1612;--ink:#efe6d8;--mute:#b9aa95;--brass:#c9a35f;--on-brass:#1a120a;--line:rgba(239,230,216,.16);--ivory:#f6eddf;color-scheme:dark;box-sizing:border-box}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]){--bg:#f4eee4;--panel:#ebe3d5;--ink:#1d1611;--mute:#6a5a49;--brass:#7d5f22;--on-brass:#ffffff;--line:rgba(29,22,17,.18);color-scheme:light}}
+:root[data-theme="light"]{--bg:#f4eee4;--panel:#ebe3d5;--ink:#1d1611;--mute:#6a5a49;--brass:#7d5f22;--on-brass:#ffffff;--line:rgba(29,22,17,.18);color-scheme:light}
+html{scroll-padding-top:72px}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Jost,"Helvetica Neue",Arial,sans-serif;font-size:1.125rem;line-height:1.65}
+main{overflow-x:clip}
+h1,h2,h3,.logo{font-family:"Cormorant Garamond",Georgia,serif;font-weight:500;line-height:1}
+h1{margin:0 0 1.2rem;font-size:clamp(3.2rem,9vw,8.4rem);letter-spacing:-.02em;line-height:.95}
+h2{margin:0 0 1.4rem;font-size:clamp(2.5rem,5.6vw,4.8rem);letter-spacing:-.015em}
+h3{margin:0 0 .6rem;font-size:1.9rem;color:var(--ink)}
+p{margin:0 0 1.3rem;max-width:46ch;color:var(--mute)}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--brass);outline-offset:3px}
+header{position:fixed;top:0;left:0;right:0;z-index:20;display:flex;justify-content:space-between;align-items:center;padding:calc(env(safe-area-inset-top,0px) + 8px) clamp(16px,4vw,48px) 8px;color:var(--ivory);transition:background-color .35s,color .35s,border-color .35s;border-bottom:1px solid transparent}
+header.solid{background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);color:var(--ink);border-color:var(--line)}
+.logo{font-size:1.7rem;font-weight:600;text-decoration:none}
+header nav{display:flex}
+header nav a{display:inline-flex;align-items:center;min-height:44px;padding:0 clamp(10px,1.6vw,18px);text-decoration:none;transition:opacity .2s}
+header nav a:hover{opacity:.65}
+.hero{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;color:var(--ivory);background:#0c0704}
+.hero-media{position:absolute;inset:0;will-change:transform}
+.scrim{position:absolute;inset:0;background:linear-gradient(to top,rgba(12,7,4,.82),rgba(12,7,4,.1) 58%,rgba(12,7,4,.5))}
+.shade{position:absolute;inset:0;background:#0c0704;opacity:0}
+.hero-copy{position:absolute;left:0;bottom:0;width:min(980px,100%);padding:0 clamp(24px,6vw,96px) calc(env(safe-area-inset-bottom,0px) + 9vh)}
+.hero-copy p{color:rgba(246,237,223,.9);font-size:1.2rem}
+.cue{position:absolute;right:clamp(24px,6vw,96px);bottom:calc(env(safe-area-inset-bottom,0px) + 9vh);display:flex;flex-direction:column;align-items:center;gap:.6rem;font-size:.9rem}
+.cue::after{content:"";width:1px;height:52px;background:var(--ivory);transform-origin:top}
+@media (prefers-reduced-motion:no-preference){.cue::after{animation:cue 2.2s ease-in-out infinite}@keyframes cue{0%{transform:scaleY(0)}60%{transform:scaleY(1)}100%{transform:scaleY(1);opacity:0}}}
+.ln{display:block;overflow:hidden;padding-bottom:.12em;margin-bottom:-.12em}
+.ln i{display:block;font-style:normal;transform:translateY(112%);transition:transform 1.1s cubic-bezier(.2,.8,.2,1)}
+.in .ln i{transform:none}
+.in .ln:nth-child(2) i{transition-delay:.14s}
+.in .ln:nth-child(3) i{transition-delay:.28s}
+.btns{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:1.8rem}
+.btn{display:inline-flex;align-items:center;min-height:48px;padding:0 1.8em;border-radius:999px;background:var(--brass);color:var(--on-brass);font-weight:500;text-decoration:none;border:1.5px solid var(--brass);transition:background-color .2s,color .2s}
+.btn:hover{background:transparent;color:var(--brass)}
+.btn.alt{background:transparent;color:inherit;border-color:currentColor}
+.btn.alt:hover{background:var(--ivory);color:#14100d;border-color:var(--ivory)}
+.sheet{position:relative;z-index:2;background:var(--bg);padding:clamp(80px,14vh,170px) clamp(24px,6vw,96px)}
+.sheet.first{border-radius:32px 32px 0 0;box-shadow:0 -40px 80px rgba(0,0,0,.4)}
+.sheet.alt{background:var(--panel)}
+.split{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(32px,6vw,96px);align-items:center}
+.frame{position:relative;aspect-ratio:4/5;overflow:hidden;border-radius:18px;background:#0c0704}
+.facts{list-style:none;margin:2.4rem 0 0;padding:1.4rem 0 0;border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem}
+.facts b{display:block;font-weight:500;color:var(--ink)}
+.facts span{color:var(--mute);font-size:.98rem;line-height:1.4;display:block}
+.gal{overflow:hidden;padding:clamp(80px,14vh,160px) 0}
+.gal-head{padding:0 clamp(24px,6vw,96px)}
+.track{display:flex;gap:20px;align-items:flex-start;width:max-content;padding:0 clamp(24px,6vw,96px);margin-top:2.4rem;will-change:transform}
+.g{position:relative;flex:none;overflow:hidden;border-radius:16px;background:#0c0704}
+.g1{width:min(32vw,440px);height:56vh}
+.g2{width:min(24vw,330px);height:44vh;margin-top:10vh}
+.g3{width:min(36vw,500px);height:50vh;margin-top:3vh}
+.g4{width:min(26vw,360px);height:58vh;margin-top:8vh}
+.g5{width:min(30vw,420px);height:46vh}
+.cols{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(28px,5vw,72px);margin-top:2.6rem}
+.menu{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.menu li{display:flex;justify-content:space-between;gap:1rem;padding:.95rem 0;border-bottom:1px solid var(--line)}
+.menu b{display:block;font-weight:500}
+.menu small{display:block;color:var(--mute);font-size:.95rem;line-height:1.4}
+.menu .pr{color:var(--ink);white-space:nowrap}
+.info{list-style:none;margin:0 0 1.6rem;padding:0;display:grid;gap:.9rem}
+.info li{display:flex;gap:.9rem;align-items:flex-start}
+.info svg{flex:none;width:24px;height:24px;margin-top:3px;fill:none;stroke:var(--brass);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.hours{list-style:none;margin:0 0 1.8rem;padding:0;border-top:1px solid var(--line);max-width:420px}
+.hours li{display:flex;justify-content:space-between;gap:1rem;padding:.7rem 0;border-bottom:1px solid var(--line)}
+.foot{margin-top:3rem;font-size:.92rem;color:var(--mute)}
+/* placeholder photos: swap for real images (an <img> as the first child covers this) */
+.ph{position:absolute;inset:0;margin:0;overflow:hidden;background:linear-gradient(to top,#090503 0 16%,#6a4326 16.4% 17.2%,transparent 17.6%),radial-gradient(70% 60% at 72% 18%,rgba(255,196,120,.38),transparent 70%),radial-gradient(120% 90% at 15% 10%,#3b2415,#100905 72%)}
+.ph::before{content:"";position:absolute;inset:-12%;filter:blur(5px);background:radial-gradient(circle at 16% 28%,rgba(255,190,100,.6) 0 4.2%,transparent 4.8%),radial-gradient(circle at 33% 20%,rgba(255,216,150,.5) 0 3%,transparent 3.6%),radial-gradient(circle at 60% 26%,rgba(255,172,82,.55) 0 5.2%,transparent 5.8%),radial-gradient(circle at 80% 16%,rgba(255,222,172,.45) 0 3.6%,transparent 4.2%),radial-gradient(circle at 47% 42%,rgba(255,160,70,.38) 0 6.4%,transparent 7%),radial-gradient(circle at 88% 44%,rgba(255,200,130,.4) 0 4.4%,transparent 5%),radial-gradient(circle at 9% 52%,rgba(255,180,96,.38) 0 3.4%,transparent 4%)}
+.ph::after{content:"";position:absolute;inset:0;opacity:.2;mix-blend-mode:overlay;background:url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E")}
+.ph[data-v="2"]::before{transform:translate(-9%,6%) scale(1.25)}
+.ph[data-v="3"]::before{transform:translate(7%,-4%) rotate(8deg) scale(1.3)}
+.ph[data-v="4"]::before{transform:scale(1.5) translate(4%,8%)}
+.ph[data-v="5"]::before{transform:translate(-4%,-6%) scale(1.15)}
+.ph[data-v="3"]{filter:hue-rotate(-8deg)}
+.ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1}
+.ph img~.tag{display:none}
+.tag{position:absolute;left:14px;bottom:12px;z-index:1;font-size:.78rem;color:rgba(246,237,223,.7)}
+.hero-media .ph{animation:kb 28s ease-in-out infinite alternate}
+@keyframes kb{from{transform:scale(1.02)}to{transform:scale(1.1) translate(-1.5%,-1%)}}
+@media (prefers-reduced-motion:reduce){.hero-media .ph{animation:none}.ln i{transform:none;transition:none}.gal{overflow-x:auto}.track{transform:none!important}}
+@media (max-width:800px){
+  header nav a:nth-child(2){display:none}
+  .split,.cols{grid-template-columns:1fr}
+  .facts{grid-template-columns:1fr}
+  .g1{width:68vw}.g2{width:52vw}.g3{width:72vw}.g4{width:56vw}.g5{width:64vw}
+  .cue{display:none}
+}
+</style>
+</head>
+<body>
+<header>
+  <a class="logo" href="#top">Slow Pour</a>
+  <nav><a href="#story">Story</a><a href="#gallery">Gallery</a><a href="#menu">Menu</a><a href="#visit">Visit</a></nav>
+</header>
+<main id="top">
+<section class="hero" aria-label="Slow Pour Coffee House">
+  <div class="hero-media"><figure class="ph" data-v="1"><span class="tag">Photo: café interior</span></figure></div>
+  <div class="scrim"></div><div class="shade"></div>
+  <div class="hero-copy">
+    <h1 class="rv"><span class="ln"><i>Where the</i></span><span class="ln"><i>morning slows</i></span><span class="ln"><i>down.</i></span></h1>
+    <p>A neighbourhood coffee house in Bandra. Single-origin pours, pastries baked at dawn, and a window seat that takes its time.</p>
+    <div class="btns"><a class="btn" href="#menu">See the menu</a><a class="btn alt" href="#visit">Find us</a></div>
+  </div>
+  <div class="cue" aria-hidden="true">Scroll</div>
+</section>
+
+<section class="sheet first" id="story"><div class="split">
+  <div>
+    <h2 class="rv"><span class="ln"><i>A counter, a grinder,</i></span><span class="ln"><i>and a slow kettle.</i></span></h2>
+    <p>We opened with one espresso machine and a short list of beans we trust. Years on, the list is still short and the kettle is still slow.</p>
+    <p>Every cup is poured to order from beans roasted that week. The pastries come out of our oven before the doors open.</p>
+    <ul class="facts"><li><b>Roasted weekly</b><span>Small batches, never stored long</span></li><li><b>Baked at dawn</b><span>Fresh before we open</span></li><li><b>Open every day</b><span>7 am to 10 pm</span></li></ul>
+  </div>
+  <div class="frame" data-reveal><figure class="ph" data-v="2"><span class="tag">Photo: the espresso bar</span></figure></div>
+</div></section>
+
+<section class="sheet alt gal" id="gallery">
+  <div class="gal-head"><h2 class="rv"><span class="ln"><i>Inside the shop.</i></span></h2><p>Morning light, a long wooden counter, and the slow hiss of the kettle.</p></div>
+  <div class="track">
+    <div class="g g1"><figure class="ph" data-v="3"><span class="tag">Photo: window seat</span></figure></div>
+    <div class="g g2"><figure class="ph" data-v="4"><span class="tag">Photo: pour-over</span></figure></div>
+    <div class="g g3"><figure class="ph" data-v="5"><span class="tag">Photo: the room</span></figure></div>
+    <div class="g g4"><figure class="ph" data-v="2"><span class="tag">Photo: pastry case</span></figure></div>
+    <div class="g g5"><figure class="ph" data-v="3"><span class="tag">Photo: latte art</span></figure></div>
+  </div>
+</section>
+
+<section class="sheet" id="menu">
+  <h2 class="rv"><span class="ln"><i>The menu.</i></span></h2>
+  <div class="cols">
+    <div><h3>Coffee</h3><ul class="menu">
+      <li><div><b>Espresso</b><small>Double shot, dark chocolate finish</small></div><span class="pr">₹140</span></li>
+      <li><div><b>Flat white</b><small>Silky milk, two shots</small></div><span class="pr">₹190</span></li>
+      <li><div><b>Pour-over</b><small>Single origin, brewed by hand</small></div><span class="pr">₹260</span></li>
+      <li><div><b>Cold brew</b><small>Steeped for 18 hours</small></div><span class="pr">₹220</span></li></ul></div>
+    <div><h3>Pastry</h3><ul class="menu">
+      <li><div><b>Almond croissant</b><small>Twice baked, still warm</small></div><span class="pr">₹180</span></li>
+      <li><div><b>Cardamom bun</b><small>Soft, sticky, fresh daily</small></div><span class="pr">₹150</span></li>
+      <li><div><b>Banana loaf</b><small>With brown butter</small></div><span class="pr">₹120</span></li>
+      <li><div><b>Sourdough toast</b><small>Salted butter, house jam</small></div><span class="pr">₹200</span></li></ul></div>
+    <div><h3>Something else</h3><ul class="menu">
+      <li><div><b>Iced latte</b><small>Over ice, with a splash of cream</small></div><span class="pr">₹200</span></li>
+      <li><div><b>Affogato</b><small>Espresso over vanilla ice cream</small></div><span class="pr">₹240</span></li>
+      <li><div><b>Hot chocolate</b><small>Dark, thick, not too sweet</small></div><span class="pr">₹210</span></li></ul></div>
+  </div>
+</section>
+
+<section class="sheet alt" id="visit"><div class="split">
+  <div class="frame" data-reveal><figure class="ph" data-v="4"><span class="tag">Photo: shopfront</span></figure></div>
+  <div>
+    <h2 class="rv"><span class="ln"><i>Find a seat.</i></span></h2>
+    <ul class="info">
+      <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg><span>12 Linking Road, Bandra West, Mumbai</span></li>
+      <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg><a href="tel:+912200000000">022 0000 0000</a></li>
+    </ul>
+    <ul class="hours"><li><span>Monday to Friday</span><span>7 am to 10 pm</span></li><li><span>Saturday and Sunday</span><span>7 am to 11 pm</span></li></ul>
+    <a class="btn" href="https://maps.google.com" target="_blank" rel="noopener">Get directions</a>
+    <div class="foot">© Slow Pour Coffee House</div>
+  </div>
+</div></section>
+</main>
+
+<script>
+(function(){
+var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+var $=function(s,c){return(c||document).querySelector(s)},$$=function(s,c){return[].slice.call((c||document).querySelectorAll(s))};
+var cl=function(x,a,b){return Math.max(a,Math.min(b,x))};
+var hdr=$('header'),heroM=$('.hero-media'),shade=$('.shade'),gal=$('#gallery'),track=$('.track'),revs=$$('[data-reveal]'),ticking=false,heroDone=false;
+
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.3});
+$$('.rv').forEach(function(el){io.observe(el)});
+
+function update(){
+  ticking=false;
+  var H=innerHeight,y=scrollY,p=cl(y/H,0,1);
+  hdr.classList.toggle('solid',y>H*.72);
+  if(reduce)return;
+  if(p<1||!heroDone){
+    heroM.style.transform='translate3d(0,'+(p*14).toFixed(2)+'vh,0) scale('+(1+p*.12).toFixed(3)+')';
+    shade.style.opacity=(p*.75).toFixed(2);heroDone=p>=1;
+  }
+  revs.forEach(function(el){
+    var r=el.getBoundingClientRect(),q=cl((H-r.top)/(H*.85),0,1),k=1-q,im=$('.ph',el);
+    el.style.clipPath='inset('+(k*22).toFixed(2)+'% '+(k*14).toFixed(2)+'% 0 '+(k*14).toFixed(2)+'% round '+(18+k*10).toFixed(1)+'px)';
+    if(im)im.style.transform='scale('+(1.18-q*.18).toFixed(3)+')';
+  });
+  var gr=gal.getBoundingClientRect(),gp=cl((H-gr.top)/(H+gr.height),0,1),travel=Math.max(0,track.scrollWidth-innerWidth);
+  track.style.transform='translate3d('+(-gp*travel).toFixed(1)+'px,0,0)';
+}
+function req(){if(!ticking){ticking=true;requestAnimationFrame(update)}}
+addEventListener('scroll',req,{passive:true});addEventListener('resize',req);
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(req);
+update();
+})();
+</script>
+</body>
+</html>
